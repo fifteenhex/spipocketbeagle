@@ -21,7 +21,7 @@
 			};
 		};
 		fdt@1 {
-			data = /incbin/("./buildroot/output/images/am335x-pocketbeagle.dtb");
+			data = /incbin/("./buildroot/output/images/am335x-spipocketbeagle.dtb");
 			type = "flat_dt";
 			arch = "arm";
 			load = <0x84000000>;
