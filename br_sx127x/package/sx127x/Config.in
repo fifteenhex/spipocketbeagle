@@ -1,0 +1,8 @@
+config BR2_PACKAGE_SX127X
+	bool "sx127x"
+	depends on BR2_LINUX_KERNEL
+	help
+	  Driver for semtech sx127x ISM Radio
+
+comment "sx127x driver needs a Linux kernel to be built"
+	depends on !BR2_LINUX_KERNEL

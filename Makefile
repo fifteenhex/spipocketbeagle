@@ -5,7 +5,7 @@ spipocketbeagle.fit: buildroot
 
 buildroot:
 	cp buildroot.config buildroot/.config
-	$(MAKE) -C buildroot
+	$(MAKE) -C buildroot BR2_EXTERNAL=../br_sx127x
 
 clean:
 	rm -f spipocketbeagle.fit

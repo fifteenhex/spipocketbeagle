@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_SX127X_PATH/package/sx127x/Config.in"
