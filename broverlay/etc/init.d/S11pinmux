@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "uart" > /sys/devices/platform/ocp/ocp\:P2_05_pinmux/state
+echo "uart" > /sys/devices/platform/ocp/ocp\:P2_07_pinmux/state
