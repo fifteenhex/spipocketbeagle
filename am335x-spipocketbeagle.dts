@@ -1050,16 +1050,31 @@
                         #address-cells = <1>;
                         #size-cells = <1>;
                         partition@0 {
-                                label = "u-boot";
-                                reg = <0x0000000 0x200000>;
+                                label = "MLO";
+                                reg = <0x0 0x20000>; // 128K
                         };
 
-                        partition@1 {
+			partition@1 {
+                                label = "uboot";
+                                reg = <0x20000 0x80000>; // 512K
+                        };
+
+			partition@2 {
+				label = "env";
+				reg = <0xA0000 0x10000>; // 64K
+			};
+
+			partition@3 {
+                                label = "space";
+                                reg = <0xB0000 0x150000>;
+                        };
+
+                        partition@4 {
                                 label = "fit1";
                                 reg = <0x200000 0x700000>;
                         };
 
-                        partition@2 {
+                        partition@5 {
                                 label = "fit2";
                                 reg = <0x900000 0x700000>;
                         };

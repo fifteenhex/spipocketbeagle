@@ -1,0 +1,35 @@
+From e4fcead20e6c8733977dce0a817148a1b84cef7d Mon Sep 17 00:00:00 2001
+From: Daniel Palmer <daniel@0x0f.com>
+Date: Sat, 13 Jan 2018 02:27:20 +0900
+Subject: [PATCH] Clean up default env
+
+---
+ include/configs/am335x_evm.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
+index bf175c1eea..7d448c498d 100644
+--- a/include/configs/am335x_evm.h
++++ b/include/configs/am335x_evm.h
+@@ -92,6 +92,7 @@
+ #include <environment/ti/dfu.h>
+ #include <environment/ti/mmc.h>
+ 
++#if 0
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+ 	DEFAULT_LINUX_BOOT_ENV \
+ 	DEFAULT_MMC_TI_ARGS \
+@@ -230,6 +231,10 @@
+ 	DFUARGS \
+ 	BOOTENV
+ #endif
++#endif
++
++#define CONFIG_EXTRA_ENV_SETTINGS\
++	"bootcmd=sf probe; sf read 0x8a000000 0x200000 0x700000; bootm 0x8a000000;"
+ 
+ /* NS16550 Configuration */
+ #define CONFIG_SYS_NS16550_COM1		0x44e09000	/* Base EVM has UART0 */
+-- 
+2.15.1
+

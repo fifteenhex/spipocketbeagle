@@ -1,0 +1,48 @@
+From 8f9e2b640ce6e1274dc025494e4580302aaf675e Mon Sep 17 00:00:00 2001
+From: Daniel Palmer <daniel@0x0f.com>
+Date: Sat, 13 Jan 2018 01:45:30 +0900
+Subject: [PATCH] Adjust SPI env offset
+
+---
+ include/configs/am335x_evm.h | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
+index 078a706676..bf175c1eea 100644
+--- a/include/configs/am335x_evm.h
++++ b/include/configs/am335x_evm.h
+@@ -34,7 +34,7 @@
+ #define CONFIG_SYS_LDSCRIPT		"board/ti/am335x/u-boot.lds"
+ 
+ /* Always 128 KiB env size */
+-#define CONFIG_ENV_SIZE			(128 << 10)
++#define CONFIG_ENV_SIZE			(64 << 10)
+ 
+ #ifdef CONFIG_NAND
+ #define NANDARGS \
+@@ -343,10 +343,7 @@
+  * Default to using SPI for environment, etc.
+  * 0x000000 - 0x020000 : SPL (128KiB)
+  * 0x020000 - 0x0A0000 : U-Boot (512KiB)
+- * 0x0A0000 - 0x0BFFFF : First copy of U-Boot Environment (128KiB)
+- * 0x0C0000 - 0x0DFFFF : Second copy of U-Boot Environment (128KiB)
+- * 0x0E0000 - 0x442000 : Linux Kernel
+- * 0x442000 - 0x800000 : Userland
++ * 0x0A0000 - 0x0AFFFF : U-Boot Environment (64KiB)
+  */
+ #if defined(CONFIG_SPI_BOOT)
+ /* SPL related */
+@@ -356,8 +353,8 @@
+ #define CONFIG_SYS_REDUNDAND_ENVIRONMENT
+ #define CONFIG_ENV_SPI_MAX_HZ		CONFIG_SF_DEFAULT_SPEED
+ #define CONFIG_ENV_SECT_SIZE		(4 << 10) /* 4 KB sectors */
+-#define CONFIG_ENV_OFFSET		(768 << 10) /* 768 KiB in */
+-#define CONFIG_ENV_OFFSET_REDUND	(896 << 10) /* 896 KiB in */
++#define CONFIG_ENV_OFFSET		(640 << 10) /* 640 KiB in */
++/*#define CONFIG_ENV_OFFSET_REDUND	(896 << 10) *//* 896 KiB in */
+ #elif defined(CONFIG_EMMC_BOOT)
+ #define CONFIG_SYS_MMC_ENV_DEV		1
+ #define CONFIG_SYS_MMC_ENV_PART		2
+-- 
+2.15.1
+
