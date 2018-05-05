@@ -7,10 +7,16 @@ buildroot:
 	cp buildroot.config buildroot/.config
 	$(MAKE) -C buildroot BR2_EXTERNAL=../br_sx127x
 
-cfg_buildroot:
+config_buildroot:
 	cp buildroot.config buildroot/.config
 	$(MAKE) -C buildroot BR2_EXTERNAL=../br_sx127x menuconfig
 	cp buildroot/.config buildroot.config
+
+config_linux:
+	cp linux.config buildroot/output/build/linux-4.14/.config
+	make ARCH=arm -C buildroot/output/build/linux-4.14/ menuconfig
+	cp buildroot/output/build/linux-4.14/.config linux.config
+
 clean:
 	rm -f spipocketbeagle.fit
 	$(MAKE) -C buildroot clean
