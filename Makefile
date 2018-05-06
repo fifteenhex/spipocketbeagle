@@ -2,13 +2,15 @@ BUILDDIR=./build
 OUTPUTSDIR=./outputs
 
 
-.PHONY: buildroot config_buildroot config_linux clean
+.PHONY: $(BUILDDIR)/linux.config buildroot config_buildroot config_linux clean
 
 spipocketbeagle.fit: buildroot
 	mkimage -f spipocketbeagle.its $@
 
 $(BUILDDIR)/linux.config: kernelconfigsnippets/base.config
-	cat kernelconfigsnippets/base.config > $@
+	cat kernelconfigsnippets/base.config > $@.tmp
+	cat kernelconfigsnippets/usb.config >> $@.tmp
+	cat $@.tmp | sort -u > $@
 
 buildroot: $(BUILDDIR)/linux.config
 	cp buildroot.config buildroot/.config
@@ -19,10 +21,10 @@ config_buildroot:
 	$(MAKE) -C buildroot BR2_EXTERNAL=../br_sx127x menuconfig
 	cp buildroot/.config buildroot.config
 
-config_linux:
-	cp linux.config buildroot/output/build/linux-4.14/.config
+config_linux: $(BUILDDIR)/linux.config
+	cp $(BUILDDIR)/linux.config buildroot/output/build/linux-4.14/.config
 	make ARCH=arm -C buildroot/output/build/linux-4.14/ menuconfig
-	cp buildroot/output/build/linux-4.14/.config linux.config
+	cat buildroot/output/build/linux-4.14/.config | grep "CONFIG_" | grep -v "^$$" | sort -u | diff $(BUILDDIR)/linux.config -
 
 clean:
 	rm -f spipocketbeagle.fit
