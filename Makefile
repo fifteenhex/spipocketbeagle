@@ -1,9 +1,16 @@
+BUILDDIR=./build
+OUTPUTSDIR=./outputs
+
+
 .PHONY: buildroot config_buildroot config_linux clean
 
 spipocketbeagle.fit: buildroot
 	mkimage -f spipocketbeagle.its $@
 
-buildroot:
+$(BUILDDIR)/linux.config: kernelconfigsnippets/base.config
+	cat kernelconfigsnippets/base.config > $@
+
+buildroot: $(BUILDDIR)/linux.config
 	cp buildroot.config buildroot/.config
 	$(MAKE) -C buildroot BR2_EXTERNAL=../br_sx127x
 
