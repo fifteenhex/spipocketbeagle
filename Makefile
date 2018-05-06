@@ -1,4 +1,4 @@
-.PHONY: buildroot cfg_buildroot clean
+.PHONY: buildroot config_buildroot config_linux clean
 
 spipocketbeagle.fit: buildroot
 	mkimage -f spipocketbeagle.its $@
