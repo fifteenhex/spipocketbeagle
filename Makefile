@@ -9,7 +9,11 @@ spipocketbeagle.fit: buildroot
 
 $(BUILDDIR)/linux.config: kernelconfigsnippets/base.config
 	cat kernelconfigsnippets/base.config > $@.tmp
+	cat kernelconfigsnippets/mtd.config >> $@.tmp
+	cat kernelconfigsnippets/jffs2.config >> $@.tmp
 	cat kernelconfigsnippets/usb.config >> $@.tmp
+	cat kernelconfigsnippets/wifi.config >> $@.tmp
+	cat kernelconfigsnippets/rtlwifi.config >> $@.tmp
 	cat $@.tmp | sort -u > $@
 
 buildroot: $(BUILDDIR)/linux.config
